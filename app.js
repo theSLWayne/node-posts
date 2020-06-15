@@ -1,10 +1,14 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
+const bodyParser = require('body-parser')
 require('dotenv/config')
 
 // Import routes
 const postsRoute = require('./routes/posts')
+
+// Middleware to run everytime a request is made. This converts body of a request to JSON format.
+app.use(bodyParser.json())
 
 // Setting up middleware to execute postsRoute everytime /posts is requested.
 app.use('/posts', postsRoute)
