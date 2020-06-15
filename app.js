@@ -3,6 +3,12 @@ const mongoose = require('mongoose')
 const app = express()
 require('dotenv/config')
 
+// Import routes
+const postsRoute = require('./routes/posts')
+
+// Setting up middleware to execute postsRoute everytime /posts is requested.
+app.use('/posts', postsRoute)
+
 // Routes
 app.get('/', (req, res) => {
     res.send("This is home!")
