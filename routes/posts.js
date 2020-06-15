@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Post = require('../models/Post')
 
+// Retrieves posts
 router.get('/', async(req, res) => {
     try {
         // This will return all posts
@@ -12,6 +13,7 @@ router.get('/', async(req, res) => {
     }
 })
 
+// Submits posts
 router.post('/', async(req, res) => {
     const post = new Post({
         title: req.body.title,
@@ -22,6 +24,16 @@ router.post('/', async(req, res) => {
     try {
         const savedPost = await post.save()
         res.json(savedPost)
+    } catch (err) {
+        res.json({ message: err })
+    }
+})
+
+// Specific post
+router.get('/:postId', async(req, res) => {
+    try {
+        const post = await Post.findById(req.params.postId)
+        res.json(post)
     } catch (err) {
         res.json({ message: err })
     }
